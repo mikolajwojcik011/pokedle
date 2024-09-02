@@ -15,7 +15,8 @@ module.exports = {
         'blue': '#294E68',
         'gold': '#CAA746',
         'pink': '#ECD9EF',
-        'orange': '#F36445'
+        'orange': '#F36445',
+        'green': '#45F395'
       },
       fontFamily: {
         'display': ['Josefin Sans'],
