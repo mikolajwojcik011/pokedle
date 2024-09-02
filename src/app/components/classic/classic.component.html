@@ -1,1 +1,52 @@
-<p>classic works!</p>
+<div class="w-full flex justify-center">
+  <img src="../assets/logo.png" alt="gej" class="py-6 w-[201px]"/>
+</div>
+<article class="flex ring-4 ring-gold bg-pink rounded-tl-3xl rounded-md mb-6 mx-4">
+  <div class="w-full h-full bg-blue m-1 py-4 px-2 text-white rounded-tl-3xl rounded-md font-light">
+    <h1>Guess today’s pokémon!</h1>
+    <p>Generation: 1</p>
+  </div>
+</article>
+<section class="w-full flex justify-center h-10 mb-6">
+  <div class="bg-blue rounded-full ring-4 ring-gold flex items-center">
+    <label for="poke-input" hidden="hidden">Insert pokemon name</label>
+    <input name="poke-input" id="poke-input" class="px-3 py-1 h-full rounded-full" placeholder="Type pokémon name..." type="text">
+    <button class="cursor-pointer">
+      <svg class="ml-3 mr-4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#CAA746"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
+    </button>
+  </div>
+</section>
+<section class="h-[480px] overflow-y-scroll bg-blue mb-6 ring-4 ring-gold rounded-tl-3xl rounded-md py-4 px-2 mx-2">
+  <div class="grid grid-cols-7 gap-x-1 gap-y-2 w-full text-[11px] text-center">
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Pokémon</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Type 1</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Type 2</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Habitat</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Evolution Stage</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Height</h2>
+    </div>
+    <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Weight</h2>
+    </div>
+    @for (guess of guesses; track guess.pokemon){
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words"></div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.type1}}</div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.type2}}</div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.habitat}}</div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.evolutionStage}}</div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.weight}}cm</div>
+      <div class="w-full h-12 bg-orange flex justify-center items-center break-words">{{guess.height}}kg</div>
+    }
+  </div>
+</section>
