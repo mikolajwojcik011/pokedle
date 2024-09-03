@@ -39,3 +39,16 @@ body {
 .scale-animation {
   animation: scaleAnimation 1s ease-in-out;
 }
+
+@keyframes appearAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.appear-animation {
+  animation: appearAnimation .1s ease-in-out;
+}

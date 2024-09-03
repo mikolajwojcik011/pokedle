@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
 import {RouterLink} from "@angular/router";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import confetti from 'canvas-confetti';
+
 
 interface PokemonCheckResult {
   field: string;
@@ -50,6 +51,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }
     if(this.guesses().length > 0) {
       this.guessed.set(this.guesses().some((guess: PokemonCheckResult[]) => guess[0].result === true && guess[1].result === true));
+      this.triggerConfetti();
     }
   }
 
@@ -79,6 +81,7 @@ export class ClassicComponent implements OnInit, OnDestroy {
         this.cookieService.set('guesses', JSON.stringify(this.guesses()), { expires });
         if (response[0].result === true && response[1].result === true){
           this.guessed.set(true);
+          this.triggerConfetti();
           console.log('You guessed correctly!');
         }
       },
@@ -88,6 +91,14 @@ export class ClassicComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.add(subscription);
+  }
+
+  private triggerConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
   }
 
   private handleError(error: HttpErrorResponse) {
