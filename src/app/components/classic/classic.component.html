@@ -1,23 +1,44 @@
 <div class="w-full flex justify-center">
   <img src="../assets/logo.png" alt="gej" class="py-6 w-[201px]"/>
 </div>
+@if (guessed()){
+  <article class="flex ring-4 ring-gold bg-pink rounded-tl-3xl rounded-md mx-4 mb-6 " [ngClass]="{'scale-animation': true}">
+    <div class="w-full h-full bg-extra-dark-green m-1 py-4 px-2 text-white rounded-tl-3xl rounded-md font-light">
+      <h1 class="mb-2 text-xl">It's super effective!</h1>
+      <div class="flex gap-4">
+        <img class="bg-white rounded ring-2 ring-black mb-2" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+guesses()[guesses().length - 1][0].value+'.png'" alt="Guessed pokemon">
+        <div>
+          <h2 class="capitalize text-lg font-semibold">It's {{guesses()[guesses().length - 1][1].value}}!</h2>
+          <p class="capitalize text-lg text-gold font-semibold">Number of tries: {{guesses().length}}</p>
+        </div>
+      </div>
+      <p class="text-lg mb-2">Next Pokémon in: <b class="text-gold">00:00:00</b></p>
+      <div class="border-t-4 border-white px-2 pt-2">
+        <a routerLink="/description">
+          <app-nav-button text="With pokédex sentence " header="dESCRIPTION">
+            <img src="../../../assets/0479Rotom-Pokédex.png" class="h-full px-2"/>
+          </app-nav-button>
+        </a>
+      </div>
+    </div>
+  </article>
+}
 <article class="flex ring-4 ring-gold bg-pink rounded-tl-3xl rounded-md mb-6 mx-4">
   <div class="w-full h-full bg-blue m-1 py-4 px-2 text-white rounded-tl-3xl rounded-md font-light">
     <h1>Guess today’s pokémon!</h1>
     <p>Generation: 1</p>
   </div>
 </article>
-<section class="w-full flex justify-center h-10 mb-6">
-  <form (submit)="submitForm($event)" class="bg-blue rounded-full ring-4 ring-gold flex items-center">
+<section class="w-full flex justify-center h-10 mb-6" [ngClass]="{'grayscale pointer-events-none': guessed()}">
+  <form  (submit)="submitForm($event)" class="bg-blue rounded-full ring-4 ring-gold flex items-center">
     <label for="poke-input" hidden="hidden">Insert pokemon name</label>
-    <input name="poke-input" id="poke-input" class="px-3 py-1 h-full rounded-full" placeholder="Type pokémon name..." type="text" [(ngModel)]="pokemonName">
+    <input required name="poke-input" id="poke-input" class="px-3 py-1 h-full rounded-full" placeholder="Type pokémon name..." type="text" [(ngModel)]="pokemonName">
     <button class="cursor-pointer">
       <svg class="ml-3 mr-4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#CAA746"><path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/></svg>
     </button>
   </form>
 </section>
-<button (click)="logGuesses()">sfasdfa</button>
-<section class="h-[450px] overflow-y-scroll bg-blue mb-6 ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-2">
+<section class="max-h-[450px] overflow-y-scroll bg-blue ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-2">
   <div class="relative grid grid-cols-7 gap-x-1 gap-y-2 w-full text-xs text-center bg-blue pt-4">
     <div class="sticky bg-blue z-50 top-0 left-0 col-span-7 h-12 grid grid-cols-7 gap-x-1 gap-y-2">
       <div class="w-full  flex justify-center items-center text-white border-b-2 border-white">
@@ -42,7 +63,7 @@
         <h2>Weight</h2>
       </div>
     </div>
-    @for (guess of guesses; track $index){
+    @for (guess of guesses(); track $index){
       <app-guess-tile><img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+guess[0].value+'.png'" [alt]="guess[1].value"></app-guess-tile>
       <app-guess-tile [isCorrect]="guess[2].result">{{guess[2].value}}</app-guess-tile>
       <app-guess-tile [isCorrect]="guess[3].result">{{guess[3].value || 'none'}}</app-guess-tile>
@@ -53,7 +74,5 @@
     }
   </div>
 </section>
+<div class="h-6 w-full"></div>
 
-<section>
-
-</section>

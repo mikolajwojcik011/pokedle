@@ -4,11 +4,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        expand: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.9)' },
+        }
+      },
       backgroundImage: {
         'poke': "url('../public/bckg.svg')",
       },
       colors: {
         'dark-green': '#263E1B',
+        'extra-dark-green': '#296837',
         'bckg-light': '#F8F6D7',
         'green-gray': '#4F5F47',
         'light-green': '#76E39E',

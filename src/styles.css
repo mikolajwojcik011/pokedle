@@ -21,6 +21,21 @@ html, body {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  background-image: url('../public/bckg.svg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes scaleAnimation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(.9);
+  }
+}
+
+.scale-animation {
+  animation: scaleAnimation 1s ease-in-out;
 }
