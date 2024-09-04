@@ -9,6 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
 import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
 import {RouterLink} from "@angular/router";
 import confetti from 'canvas-confetti';
+import {GuessedSectionComponent} from "../shared/guessed-section/guessed-section.component";
+import {HeaderSectionComponent} from "../shared/header-section/header-section.component";
+import {ConfettiUtil} from "../../utils/confetti.util";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 
 interface PokemonCheckResult {
@@ -27,10 +31,19 @@ interface PokemonCheckResult {
     NgClass,
     NavButtonComponent,
     RouterLink,
+    GuessedSectionComponent,
+    HeaderSectionComponent,
   ],
   templateUrl: './classic.component.html',
   styleUrl: './classic.component.css',
-  providers: [CookieService]
+  providers: [CookieService],
+  animations: [
+    trigger('appearAnimation', [
+      state('void', style({ transform: 'scale(0)' })),
+      state('*', style({ transform: 'scale(1)' })),
+      transition('void => *', animate('.1s ease-in-out')),
+    ])
+  ]
 })
 export class ClassicComponent implements OnInit, OnDestroy {
   guesses: WritableSignal<PokemonCheckResult[][]> = signal<PokemonCheckResult[][]>([]);
@@ -45,13 +58,13 @@ export class ClassicComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const cookieGuesses: string = this.cookieService.get('guesses');
+    const cookieGuesses: string = this.cookieService.get('guessesClassic');
     if (cookieGuesses) {
       this.guesses.set(JSON.parse(cookieGuesses));
     }
     if(this.guesses().length > 0) {
       this.guessed.set(this.guesses().some((guess: PokemonCheckResult[]) => guess[0].result === true && guess[1].result === true));
-      this.triggerConfetti();
+      if (this.guessed()) ConfettiUtil.triggerConfetti()
     }
   }
 
@@ -66,9 +79,8 @@ export class ClassicComponent implements OnInit, OnDestroy {
       );
   }
 
-  submitForm(event: Event): void {
-    console.log('Form submitted');
-    event.preventDefault();
+  submitForm($event: Event): void {
+    $event.preventDefault();
     if (!this.pokemonName().trim()) {
       this.errorMessage.set('Pokemon name is required');
       return;
@@ -78,10 +90,10 @@ export class ClassicComponent implements OnInit, OnDestroy {
         this.guesses.update(guesses => [...guesses, response]);
         const expires = new Date();
         expires.setHours(24, 0, 0, 0);
-        this.cookieService.set('guesses', JSON.stringify(this.guesses()), { expires });
+        this.cookieService.set('guessesClassic', JSON.stringify(this.guesses()), { expires });
         if (response[0].result === true && response[1].result === true){
           this.guessed.set(true);
-          this.triggerConfetti();
+          ConfettiUtil.triggerConfetti();
           console.log('You guessed correctly!');
         }
       },
@@ -91,14 +103,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.add(subscription);
-  }
-
-  private triggerConfetti() {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
   }
 
   private handleError(error: HttpErrorResponse) {

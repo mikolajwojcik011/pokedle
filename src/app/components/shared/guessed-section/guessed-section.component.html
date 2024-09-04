@@ -1,0 +1,18 @@
+<article class="flex ring-4 ring-gold bg-pink rounded-tl-3xl rounded-md mx-4 mb-6 " [ngClass]="{'scale-animation': true}">
+  <div class="w-full h-full bg-extra-dark-green m-1 py-4 px-2 text-white rounded-tl-3xl rounded-md font-light">
+    <h1 class="mb-2 text-xl">It's super effective!</h1>
+    <div class="flex gap-4">
+      <img class="bg-white rounded ring-2 ring-black mb-2" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+pokemonId+'.png'" alt="Guessed pokemon">
+      <div>
+        <h2 class="capitalize text-lg font-semibold">It's {{pokemon}}!</h2>
+        <p class="capitalize text-lg text-gold font-semibold">Number of tries: {{numberOfTries}}</p>
+      </div>
+    </div>
+    <p class="text-lg mb-2">Next Pokémon in: <b class="text-gold">00:00:00</b></p>
+    <div class="border-t-4 border-white px-2 pt-2">
+      <h3 class="text-lg">Next mode:</h3>
+      <ng-content></ng-content>
+
+    </div>
+  </div>
+</article>
