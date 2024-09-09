@@ -1,5 +1,7 @@
 <div class="w-full flex justify-center">
-  <img ngSrc="../assets/logo.png" alt="gej" class="py-6" width="201" height="100" />
+  <a class="cursor-pointer" routerLink="/">
+    <img src="../assets/logo.png" alt="gej" class="py-6 w-[201px]"/>
+  </a>
 </div>
 @if (guessed()){
   <app-guessed-section [pokemon]="guesses()[guesses().length - 1][1].value" [pokemonId]="guesses()[guesses().length - 1][0].value" [numberOfTries]="guesses().length">
@@ -25,7 +27,7 @@
     </button>
   </form>
 </section>
-<section class="overflow-y-scroll bg-blue ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-2">
+<section class="bg-blue ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-2">
   <div class="relative grid grid-cols-7 gap-x-1 gap-y-2 w-full text-xs text-center bg-blue pt-4">
     <div class="sticky bg-blue z-50 top-0 left-0 col-span-7 h-12 grid grid-cols-7 gap-x-1 gap-y-2">
       <div class="w-full  flex justify-center items-center text-white border-b-2 border-white">
