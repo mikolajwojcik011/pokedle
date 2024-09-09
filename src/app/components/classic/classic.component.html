@@ -10,10 +10,12 @@
     </a>
   </app-guessed-section>
 }
-<app-header-section>
-  <h1>Guess today’s pokémon!</h1>
-  <p>Generation: 1</p>
-</app-header-section>
+@if (!guessed()){
+  <app-header-section>
+    <h1>Guess today’s pokémon!</h1>
+    <p>Generation: 1</p>
+  </app-header-section>
+}
 <section class="w-full flex justify-center h-10 mb-6" [ngClass]="{'hidden': guessed()}">
   <form  (submit)="submitForm($event)" class="bg-blue rounded-full ring-4 ring-gold flex items-center">
     <label for="poke-input" hidden="hidden">Insert pokemon name</label>

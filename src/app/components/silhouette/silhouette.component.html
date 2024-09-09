@@ -1,1 +1,43 @@
-<p>silhouette works!</p>
+<div class="w-full flex justify-center">
+  <img src="../assets/logo.png" alt="gej" class="py-6 w-[201px]"/>
+</div>
+@if (guessed()){
+  <app-guessed-section [pokemon]="guesses()[guesses().length-1].pokemon" [pokemonId]="guesses()[guesses().length-1].id" [numberOfTries]="guesses().length">
+    <a routerLink="/classic">
+      <app-nav-button text="Get clues on every try" header="Classic">
+        <img src="../../../assets/0001Bulbasaur.png" class="h-full px-2"/>
+      </app-nav-button>
+    </a>
+  </app-guessed-section>
+}
+@if (!guessed()){
+  <app-header-section>
+    <h1 class="text-lg">Which pokémon has this description?</h1>
+    <div class="flex justify-center my-2">
+      <div class="bg-white rounded ring-2 ring-black flex justify-center w-40 h-40">
+        <img class="brightness-0" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+id()+'.png'" alt="pokemon img">
+      </div>
+    </div>
+    <p>Generation: 1</p>
+  </app-header-section>
+}
+<section class="w-full flex justify-center h-10 mb-6" [ngClass]="{'hidden': guessed()}">
+  <form  (submit)="submitForm($event)" class="bg-blue rounded-full ring-4 ring-gold flex items-center">
+    <label for="poke-input" hidden="hidden">Insert pokemon name</label>
+    <input required name="poke-input" id="poke-input" class="px-3 py-1 h-full rounded-full" placeholder="Type pokémon name..." type="text" [(ngModel)]="pokemonName">
+    <button class="cursor-pointer">
+      <svg class="ml-3 mr-4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#CAA746">
+        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+      </svg>
+    </button>
+  </form>
+</section>
+<section class="flex flex-col items-center px-12 gap-2 overflow-y-scroll">
+  @for (guess of guesses().slice().reverse(); track guess.id){
+    <div  class="flex w-full p-2 ring-2 ring-inset ring-black rounded items-center gap-2" [@appearAnimation] [ngClass]="{'bg-orange': !guess.correct, 'bg-green': guess.correct}">
+      <img class="bg-white ring-2 ring-inset ring-black rounded" [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+guess.id+'.png'" alt="huj">
+      <p class="uppercase font-semibold">{{guess.pokemon}}</p>
+    </div>
+  }
+</section>
+<div class="h-6 w-full"></div>

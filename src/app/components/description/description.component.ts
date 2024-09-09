@@ -51,7 +51,7 @@ export class DescriptionComponent implements OnInit, OnDestroy {
     this.getDescription();
 
     const cookieGuesses: string = this.cookieService.get('guessesDescription');
-    if (cookieGuesses) {
+    if(cookieGuesses) {
       this.guesses.set(JSON.parse(cookieGuesses));
     }
     if(this.guesses().length > 0) {
@@ -123,9 +123,5 @@ export class DescriptionComponent implements OnInit, OnDestroy {
       errorMessage = `Server returned code: ${error.status}, error message is: ${error.message}`;
     }
     return throwError(() => new Error(errorMessage));
-  }
-
-  trackByIndex(index: number, item: any): number {
-    return index;
   }
 }
