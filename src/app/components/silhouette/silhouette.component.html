@@ -1,5 +1,5 @@
 <div class="w-full flex justify-center">
-  <img ngSrc="../assets/logo.png" alt="gej" class="py-6" width="201" height="100" />
+  <img src="../assets/logo.png" alt="gej" class="py-6 w-[201px]" />
 </div>
 @if (guessed()){
   <app-guessed-section [pokemon]="guesses()[guesses().length-1].pokemon" [pokemonId]="guesses()[guesses().length-1].id" [numberOfTries]="guesses().length">
