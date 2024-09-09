@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, signal, WritableSignal} from '@angular/cor
 import {HeaderSectionComponent} from "../shared/header-section/header-section.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {NgClass} from "@angular/common";
+import {NgClass, NgOptimizedImage} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {ConfettiUtil} from "../../utils/confetti.util";
@@ -21,7 +21,8 @@ import {RouterLink} from "@angular/router";
     NgClass,
     GuessedSectionComponent,
     NavButtonComponent,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   templateUrl: './silhouette.component.html',
   styleUrl: './silhouette.component.css',

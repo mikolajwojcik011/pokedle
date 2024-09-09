@@ -3,7 +3,7 @@ import { GuessTileComponent } from './guess-tile/guess-tile.component';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { JsonPipe, NgClass } from '@angular/common';
+import {JsonPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
@@ -33,6 +33,7 @@ interface PokemonCheckResult {
     RouterLink,
     GuessedSectionComponent,
     HeaderSectionComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './classic.component.html',
   styleUrl: './classic.component.css',

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 import {HeaderSectionComponent} from "../shared/header-section/header-section.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgClass} from "@angular/common";
+import {NgClass, NgOptimizedImage} from "@angular/common";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, Subscription, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
@@ -22,7 +22,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     NgClass,
     GuessedSectionComponent,
     NavButtonComponent,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   templateUrl: './description.component.html',
   styleUrl: './description.component.css',
