@@ -105,6 +105,8 @@ export class SilhouetteComponent implements OnInit, OnDestroy{
     this.subscriptions.add(subscription);
   }
 
+
+
   private unsubscribeAll() {
     this.subscriptions.unsubscribe();
   }
