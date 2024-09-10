@@ -3,6 +3,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
+    screens: {
+      'tablet': '768px',
+      'laptop': '1024px',
+      'desktop': '1440px',
+      '4k': '2560px',
+    },
     extend: {
       animation: {
         expand: {

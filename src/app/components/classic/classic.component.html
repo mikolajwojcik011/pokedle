@@ -27,36 +27,36 @@
     </button>
   </form>
 </section>
-<section class="bg-blue ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-2">
-  <div class="relative grid grid-cols-7 gap-x-1 gap-y-2 w-full text-xs text-center bg-blue pt-4">
-    <div class="sticky bg-blue z-50 top-0 left-0 col-span-7 h-12 grid grid-cols-7 gap-x-1 gap-y-2">
-      <div class="w-full  flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Pokémon</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Type 1</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Type 2</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Habitat</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Evolution Stage</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Height</h2>
-      </div>
-      <div class="w-full flex justify-center items-center text-white border-b-2 border-white">
-        <h2>Weight</h2>
-      </div>
+<section class="bg-blue ring-4 ring-gold rounded-tl-3xl rounded-md pb-4 px-2 mx-1 text-xs tablet:text-md tablet:mx-4">
+  <div class="sticky grid grid-cols-7 gap-y-2 gap-x-1 w-full text-center bg-blue pt-4 rounded-tl-3xl place-content-center tablet:gap-x-2">
+    <div class="flex h-12 justify-center items-center text-white border-b-2 border-white">
+      <h2>Pokémon</h2>
     </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Type 1</h2>
+    </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Type 2</h2>
+    </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Habitat</h2>
+    </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Evolution Stage</h2>
+    </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Height</h2>
+    </div>
+    <div class="flex justify-center items-center text-white border-b-2 border-white">
+      <h2>Weight</h2>
+    </div>
+  </div>
+  <div class="relative grid grid-cols-7 gap-y-2 gap-x-1 w-full text-center bg-blue pt-4 rounded-tl-3xl place-content-center tablet:gap-x-2 tablet:text-lg">
     @for (guess of guesses().slice().reverse(); track guess[0].value){
       <app-guess-tile [@appearAnimation]><img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+guess[0].value+'.png'" [alt]="guess[1].value"></app-guess-tile>
       <app-guess-tile [@appearAnimation] [isCorrect]="guess[2].result">{{guess[2].value}}</app-guess-tile>
       <app-guess-tile [@appearAnimation] [isCorrect]="guess[3].result">{{guess[3].value || 'none'}}</app-guess-tile>
-      <app-guess-tile class="text-[9px]" [@appearAnimation] [isCorrect]="guess[4].result">{{guess[4].value}}</app-guess-tile>
+      <app-guess-tile class="text-[9px] tablet:text-sm bg-red-600" [@appearAnimation] [isCorrect]="guess[4].result">{{guess[4].value}}</app-guess-tile>
       <app-guess-tile class="font-bold" [@appearAnimation] [isCorrect]="guess[5].result">{{guess[5].value}}</app-guess-tile>
       <app-guess-tile class="font-bold" [@appearAnimation] [isCorrect]="guess[6].result">{{guess[6].value}}</app-guess-tile>
       <app-guess-tile class="font-bold" [@appearAnimation] [isCorrect]="guess[7].result">{{guess[7].value}}</app-guess-tile>

@@ -1,5 +1,5 @@
 <div
-  class="w-full relative h-12 ring-2 ring-inset ring-black flex justify-center items-center break-words rounded-sm"
+  class="w-full h-full relative ring-2 ring-inset ring-black flex justify-center items-center break-words rounded-sm"
   [ngClass]="{
     'bg-orange': isCorrect === false,
     'bg-green': isCorrect === true || isCorrect === 0,
@@ -10,12 +10,12 @@
 >
   <ng-content></ng-content>
   @if(isCorrect === 1){
-    <svg class="absolute size-10 opacity-40" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+    <svg class="absolute size-10 tablet:size-20 opacity-40" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
       <path d="M440-160v-487L216-423l-56-57 320-320 320 320-56 57-224-224v487h-80Z"/>
     </svg>
   }
   @if(isCorrect === -1 ){
-    <svg class="absolute size-10 opacity-40" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+    <svg class="absolute size-10 tablet:size-20 opacity-40" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
       <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z"/>
     </svg>
   }
