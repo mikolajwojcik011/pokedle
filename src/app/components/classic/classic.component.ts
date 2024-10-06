@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, signal, WritableSignal } from '@angular/core';
+import {Component, OnInit, OnDestroy, signal, WritableSignal, ElementRef, ViewChild, Renderer2} from '@angular/core';
 import { GuessTileComponent } from './guess-tile/guess-tile.component';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, throwError } from 'rxjs';
@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
 import {RouterLink} from "@angular/router";
-import confetti from 'canvas-confetti';
 import {GuessedSectionComponent} from "../shared/guessed-section/guessed-section.component";
 import {HeaderSectionComponent} from "../shared/header-section/header-section.component";
 import {ConfettiUtil} from "../../utils/confetti.util";
@@ -43,6 +42,11 @@ interface PokemonCheckResult {
       state('void', style({ transform: 'scale(0)' })),
       state('*', style({ transform: 'scale(1)' })),
       transition('void => *', animate('.1s ease-in-out')),
+    ]),
+    trigger('flashAnimation', [
+      state('default', style({ backgroundColor: 'white' })),
+      state('error', style({ backgroundColor: '#dc2626' })),
+      transition('default <=> error', animate('0.1s ease-in-out'))
     ])
   ]
 })
@@ -53,9 +57,11 @@ export class ClassicComponent implements OnInit, OnDestroy {
   errorMessage: WritableSignal<string> = signal<string>('');
   private subscriptions: Subscription = new Subscription();
 
+  inputState: string = 'default';
+
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {}
 
   ngOnInit() {
@@ -80,13 +86,31 @@ export class ClassicComponent implements OnInit, OnDestroy {
       );
   }
 
+  isPokemonInGuesses(pokemonName: string): boolean {
+    return this.guesses().some((guess: PokemonCheckResult[]) => guess[1].value === pokemonName.toLowerCase());
+  }
+
+  flashInput() {
+    this.inputState = 'error';
+    setTimeout(() => {
+      this.inputState = 'default';
+    }, 100);
+  }
+
+
   submitForm($event: Event): void {
     $event.preventDefault();
     if (!this.pokemonName().trim()) {
       this.errorMessage.set('Pokemon name is required');
+      this.flashInput();
       return;
     }
-    const subscription = this.checkPokemon(this.pokemonName()).subscribe({
+    if (this.isPokemonInGuesses(this.pokemonName().toLowerCase())) {
+      this.errorMessage.set('You have already guessed this Pokémon');
+      this.flashInput();
+      return;
+    }
+    const subscription = this.checkPokemon(this.pokemonName().toLowerCase()).subscribe({
       next: (response) => {
         this.guesses.update(guesses => [...guesses, response]);
         const expires = new Date();
