@@ -1,18 +1,19 @@
-import {Component, OnInit, OnDestroy, signal, WritableSignal, ElementRef, ViewChild, Renderer2} from '@angular/core';
-import { GuessTileComponent } from './guess-tile/guess-tile.component';
+import { Component, OnInit, OnDestroy, signal, WritableSignal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {JsonPipe, NgClass, NgOptimizedImage} from '@angular/common';
+import { JsonPipe, NgClass, NgOptimizedImage } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
-import {RouterLink} from "@angular/router";
-import {GuessedSectionComponent} from "../shared/guessed-section/guessed-section.component";
-import {HeaderSectionComponent} from "../shared/header-section/header-section.component";
-import {ConfettiUtil} from "../../utils/confetti.util";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-
+import { NavButtonComponent } from '../shared/nav-button/nav-button.component';
+import { RouterLink } from '@angular/router';
+import confetti from 'canvas-confetti';
+import { GuessedSectionComponent } from '../shared/guessed-section/guessed-section.component';
+import { HeaderSectionComponent } from '../shared/header-section/header-section.component';
+import { ConfettiUtil } from '../../utils/confetti.util';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AutocompleatComponent } from '../shared/autocompleat/autocompleat.component';
+import {GuessTileComponent} from "./guess-tile/guess-tile.component";
 
 interface PokemonCheckResult {
   field: string;
@@ -33,6 +34,7 @@ interface PokemonCheckResult {
     GuessedSectionComponent,
     HeaderSectionComponent,
     NgOptimizedImage,
+    AutocompleatComponent,
   ],
   templateUrl: './classic.component.html',
   styleUrl: './classic.component.css',
@@ -96,7 +98,6 @@ export class ClassicComponent implements OnInit, OnDestroy {
       this.inputState = 'default';
     }, 100);
   }
-
 
   submitForm($event: Event): void {
     $event.preventDefault();
