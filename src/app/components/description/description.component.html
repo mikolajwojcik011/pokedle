@@ -21,11 +21,10 @@
     <p>Generation: 1</p>
   </app-header-section>
 }
-<section class="w-full flex justify-center h-10 mb-6" [ngClass]="{'hidden': guessed()}">
-  <form  (submit)="submitForm($event)" class="bg-blue rounded-full ring-4 ring-gold flex items-center">
-    <label for="poke-input" hidden="hidden">Insert pokemon name</label>
-    <input required name="poke-input" id="poke-input" class="px-3 py-1 h-full rounded-full" placeholder="Type pokémon name..." type="text" [(ngModel)]="pokemonName">
-    <button class="cursor-pointer">
+<section class="flex justify-center h-10 mb-6">
+  <form id="form" (submit)="submitForm($event)" class="w-80 bg-blue rounded-full ring-4 ring-gold flex items-center">
+    <app-autocompleat class="w-full h-full rounded-full" (pokemonSelected)="handlePokemonSelected($event)"></app-autocompleat>
+    <button type="submit" form="form" class="cursor-pointer h-full">
       <svg class="ml-3 mr-4" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#CAA746">
         <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
       </svg>

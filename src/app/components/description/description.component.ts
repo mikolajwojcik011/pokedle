@@ -11,6 +11,7 @@ import {RouterLink} from "@angular/router";
 import {ConfettiUtil} from "../../utils/confetti.util";
 import {CookieService} from "ngx-cookie-service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AutocompleatComponent} from "../shared/autocompleat/autocompleat.component";
 
 @Component({
   selector: 'app-description',
@@ -23,7 +24,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     GuessedSectionComponent,
     NavButtonComponent,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AutocompleatComponent
   ],
   templateUrl: './description.component.html',
   styleUrl: './description.component.css',
@@ -85,10 +87,19 @@ export class DescriptionComponent implements OnInit, OnDestroy {
       );
   }
 
-  submitForm($event: SubmitEvent) {
+  handlePokemonSelected(pokemon: string): void {
+    this.pokemonName.set(pokemon);
+    this.submitForm(new Event('submit'));
+  }
+
+  submitForm($event: Event): void {
     $event.preventDefault();
     if (!this.pokemonName().trim()) {
       this.errorMessage.set('Pokemon name is required');
+      return;
+    }
+    if (this.isPokemonInGuesses(this.pokemonName().toLowerCase())) {
+      this.errorMessage.set('You have already guessed this Pokémon');
       return;
     }
     const subscription = this.checkPokemon(this.pokemonName()).subscribe({
@@ -110,6 +121,10 @@ export class DescriptionComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.add(subscription);
+  }
+
+  isPokemonInGuesses(pokemonName: string): boolean {
+    return this.guesses().some((guess) => guess.pokemon.toLowerCase() === pokemonName);
   }
 
   private unsubscribeAll() {

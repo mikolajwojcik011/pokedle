@@ -10,6 +10,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {GuessedSectionComponent} from "../shared/guessed-section/guessed-section.component";
 import {NavButtonComponent} from "../shared/nav-button/nav-button.component";
 import {RouterLink} from "@angular/router";
+import {AutocompleatComponent} from "../shared/autocompleat/autocompleat.component";
 
 @Component({
   selector: 'app-silhouette',
@@ -22,7 +23,8 @@ import {RouterLink} from "@angular/router";
     GuessedSectionComponent,
     NavButtonComponent,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AutocompleatComponent
   ],
   templateUrl: './silhouette.component.html',
   styleUrl: './silhouette.component.css',
@@ -78,8 +80,20 @@ export class SilhouetteComponent implements OnInit, OnDestroy{
     this.subscriptions.add(subscription);
   }
 
-  submitForm($event: SubmitEvent) {
+  handlePokemonSelected(pokemon: string): void {
+    this.pokemonName.set(pokemon);
+    this.submitForm(new Event('submit'));
+  }
+  submitForm($event: Event): void {
     $event.preventDefault();
+    if (!this.pokemonName().trim()) {
+      this.errorMessage.set('Pokemon name is required');
+      return;
+    }
+    if (this.isPokemonInGuesses(this.pokemonName().toLowerCase())) {
+      this.errorMessage.set('You have already guessed this Pokémon');
+      return;
+    }
     this.checkPokemon();
   }
 
@@ -105,11 +119,11 @@ export class SilhouetteComponent implements OnInit, OnDestroy{
     this.subscriptions.add(subscription);
   }
 
-
+  isPokemonInGuesses(pokemonName: string): boolean {
+    return this.guesses().some((guess) => guess.pokemon.toLowerCase() === pokemonName);
+  }
 
   private unsubscribeAll() {
     this.subscriptions.unsubscribe();
   }
 }
-
-

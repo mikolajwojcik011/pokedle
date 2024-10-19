@@ -99,6 +99,11 @@ export class ClassicComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
+  handlePokemonSelected(pokemon: string): void {
+    this.pokemonName.set(pokemon);
+    this.submitForm(new Event('submit'));
+  }
+
   submitForm($event: Event): void {
     $event.preventDefault();
     if (!this.pokemonName().trim()) {

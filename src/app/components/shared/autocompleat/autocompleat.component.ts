@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import {NgForOf, NgIf} from "@angular/common";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 interface Pokemon {
   name: string;
@@ -15,16 +15,22 @@ interface Pokemon {
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf,
-    NgForOf
   ],
-  styleUrls: ['./autocompleat.component.css']
+  styleUrls: ['./autocompleat.component.css'],
+  animations: [
+    trigger('flashAnimation', [
+      state('default', style({ backgroundColor: 'white' })),
+      state('error', style({ backgroundColor: '#dc2626' })),
+      transition('default <=> error', animate('0.1s ease-in-out'))
+    ])
+  ]
 })
 export class AutocompleatComponent implements OnInit {
   pokemonData: Pokemon[] = [];
   filteredPokemon: Pokemon[] = [];
   searchControl: FormControl = new FormControl('');
-  @Output() pokemonSelected = new EventEmitter<string>();
+  isInputActive: boolean = false;
+  @Output() pokemonSelected: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private http: HttpClient) {}
 
@@ -52,8 +58,20 @@ export class AutocompleatComponent implements OnInit {
   }
 
   selectPokemon(pokemon: Pokemon): void {
-    this.searchControl.setValue(pokemon.name);
     this.filteredPokemon = [];
     this.pokemonSelected.emit(pokemon.name);
+    this.searchControl.setValue('');
+  }
+
+  onFocus() {
+    this.isInputActive = true;
+  }
+
+  onBlur(event: FocusEvent) {
+    const relatedTarget = event.relatedTarget as HTMLElement;
+    if (relatedTarget && relatedTarget.tagName === 'LI') {
+      return;
+    }
+    this.isInputActive = false;
   }
 }
