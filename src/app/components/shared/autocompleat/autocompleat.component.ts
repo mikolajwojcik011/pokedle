@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 interface Pokemon {
   name: string;
@@ -53,7 +53,7 @@ export class AutocompleatComponent implements OnInit {
       return;
     }
     this.filteredPokemon = this.pokemonData.filter(pokemon =>
-      pokemon.name.toLowerCase().includes(query.toLowerCase())
+      pokemon.name.toLowerCase().indexOf(query.toLowerCase()) === 0
     );
   }
 
